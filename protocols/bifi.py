@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import requests
 import pandas as pd
+from pprint import pprint
 
 load_dotenv()
 
@@ -19,7 +20,9 @@ if response.status_code == 200:
 
     df = pd.DataFrame(data)
 
-    df_filtered = df[df['is_eol'] == False]
+    # Filter out End of life vaults
+    df_filtered = df[df['is_eol'] == False] 
 
+    pprint(df_filtered.to_dict(orient="records"))
 else:
     print(f"Error: {response.status_code} - {response.text}")
