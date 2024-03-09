@@ -11,6 +11,7 @@ class BlackDataFetcher(DefiProtocol):
         self.vault_address = BLACK_VAULT_ADDRESSES
 
     def process_data(self):
+        print("Processing Black data...")
         data = self.fetch_data()
         if data:
             df = pd.DataFrame(data)

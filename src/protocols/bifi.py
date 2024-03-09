@@ -11,6 +11,7 @@ class BeefyDataFetcher(DefiProtocol):
         super().__init__(api_url, **params)
 
     def process_data(self):
+        print("Processing Beefy data...")
         data = self.fetch_data()
         if data:
             df = pd.DataFrame(data)

@@ -11,15 +11,11 @@ def main():
     load_dotenv()
 
     bifi = BeefyDataFetcher(os.getenv("BEEFY_ADDRESS"))
-    data = bifi.fetch_data()
-    if data:
-        print("bifi ok")
+    if bifi.fetch_data():
         bifi.process_data()
 
     black = BlackDataFetcher(os.getenv("INJ_ADDRESS"))
-    data = black.fetch_data()
-    if data:
-        print("black ok")
+    if black.fetch_data():
         black.process_data()
 
 if __name__ == "__main__":
