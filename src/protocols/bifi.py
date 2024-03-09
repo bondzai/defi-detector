@@ -1,10 +1,10 @@
 import os
 import pandas as pd
-from src.protocols.base_protocol import ProtocolDataFetcher
+from src.protocols.base_protocol import DefiProtocol
 from pprint import pprint
 
 
-class BeefyDataFetcher(ProtocolDataFetcher):
+class BeefyDataFetcher(DefiProtocol):
     def __init__(self, address):
         api_url = os.getenv("BEEFY_API_URL")
         params = {"address": address}
