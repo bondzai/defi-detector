@@ -1,16 +1,13 @@
-from web3 import Web3
+import pandas as pd
+from data import data
 
-# Connect to an Ethereum node
-w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/YOUR_INFURA_API_KEY'))
+df = pd.DataFrame(data)
 
-# Replace 'YOUR_CONTRACT_ADDRESS' and 'YOUR_ABI' with the actual values
-contract_address = 'YOUR_CONTRACT_ADDRESS'
-contract_abi = 'YOUR_ABI'
+total_previous_share_value = df['previous_share_value'].sum()
+total_current_share_value = df['current_share_value'].sum()
+total_performance = df['performance'].sum() / len(df) if len(df) > 0 else 0
 
-# Create a contract object
-contract = w3.eth.contract(address=contract_address, abi=contract_abi)
-
-# Example read-only function call to get data from the contract
-result = contract.functions.yourReadOnlyFunctionName().call()
-
-print(result)
+print("Summary:")
+print(f"Previous Share Value: {total_previous_share_value:.2f}")
+print(f"Current Share Value: {total_current_share_value:.2f}")
+print(f"Performance: {total_performance:.2f}%")
