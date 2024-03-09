@@ -40,4 +40,3 @@ class BlackDataFetcher(DefiProtocol):
             print(f"Performance: {total_performance:.2f}%")
         else:
             print("No data fetched.")
-
