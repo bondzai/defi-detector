@@ -13,8 +13,16 @@ class BeefyDataFetcher(DefiProtocol):
         data = self.fetch_data()
         if data:
             df = pd.DataFrame(data)
-            df_filtered = df[df['is_eol'] == False]
+            df = df[(df['is_eol'] == False) & (df['is_dashboard_eol'] == False)]
+            df['datetime'] = pd.to_datetime(df['datetime'])
+            df_sorted = df.sort_values(by='datetime', ascending=False)
+            df_filtered = df_sorted.drop_duplicates(subset='product_key', keep='first')
+
+            print(df_filtered)
             print("Summary:")
             print(len(df_filtered))
+
+            from pprint import pprint
+            pprint(df_filtered.to_dict(orient="records"))
         else:
             print("No data fetched.")
