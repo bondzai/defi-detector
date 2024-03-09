@@ -20,7 +20,6 @@ if response.status_code == 200:
 
     df = pd.DataFrame(data)
 
-    # Filter out End of life vaults
     df_filtered = df[df['is_eol'] == False] 
 
     pprint(df_filtered.to_dict(orient="records"))
