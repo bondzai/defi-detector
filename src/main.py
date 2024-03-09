@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from protocols.black_panther import BlackDataFetcher
-from protocols.bifi import BeefyDataFetcher
+from protocols.beefy import BeefyDataFetcher
 from dotenv import load_dotenv
 
 

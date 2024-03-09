@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from src.protocols import DefiProtocol
-from src.constants.vault_constants import BIFI_VAULT_ADDRESSES
+from src.constants.vault_constants import BEEFY_VAULT_ADDRESSES
 from pprint import pprint
 
 class BeefyDataFetcher(DefiProtocol):
@@ -11,7 +11,7 @@ class BeefyDataFetcher(DefiProtocol):
         super().__init__(api_url, **params)
 
     def process_data(self):
-        print("Processing Beefy data...")
+        print("Processing Beefy data...", "\n")
         data = self.fetch_data()
         if data:
             df = pd.DataFrame(data)
@@ -20,7 +20,7 @@ class BeefyDataFetcher(DefiProtocol):
             df = df.sort_values(by='datetime', ascending=False)
             df = df.drop_duplicates(subset='product_key', keep='first')
 
-            valid_product_keys = [key for key in BIFI_VAULT_ADDRESSES.keys()]
+            valid_product_keys = [key for key in BEEFY_VAULT_ADDRESSES.keys()]
             df = df[df['product_key'].isin(valid_product_keys)]
 
             df = df.drop(columns=[
