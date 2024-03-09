@@ -17,5 +17,5 @@ tasks:
   run:
     cmds:
       - echo "detector starting..."
-      - python main.py
+      - python src/main.py
     silent: true
