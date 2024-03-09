@@ -3,12 +3,11 @@ import pandas as pd
 from src.protocols import DefiProtocol
 from src.constants.vault_constants import BLACK_VAULT_ADDRESSES
 
-class BlackDataFetcher(DefiProtocol):
+class Black(DefiProtocol):
     def __init__(self, wallet_address):
         api_url = os.getenv("BLACK_API_URL")
         params = {"wallet_address": wallet_address}
         super().__init__(api_url, **params)
-        self.vault_address = BLACK_VAULT_ADDRESSES
 
     def process_data(self):
         print("Processing Black data...", "\n")
@@ -16,7 +15,7 @@ class BlackDataFetcher(DefiProtocol):
         if data:
             df = pd.DataFrame(data)
 
-            df['vault_address_mapped'] = df['vault_address'].map(self.vault_address)
+            df['vault_address_mapped'] = df['vault_address'].map(BLACK_VAULT_ADDRESSES)
 
             grouped_data = df.groupby('vault_address_mapped').agg(
                 total_previous_share_value=('previous_share_value', 'sum'),

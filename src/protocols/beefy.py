@@ -4,7 +4,7 @@ from src.protocols import DefiProtocol
 from src.constants.vault_constants import BEEFY_VAULT_ADDRESSES
 from pprint import pprint
 
-class BeefyDataFetcher(DefiProtocol):
+class Beefy(DefiProtocol):
     def __init__(self, address):
         api_url = os.getenv("BEEFY_API_URL")
         params = {"address": address}
