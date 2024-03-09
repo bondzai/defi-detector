@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from src.protocols.base_protocol import DefiProtocol
+from src.protocols import DefiProtocol
 from pprint import pprint
 
 
