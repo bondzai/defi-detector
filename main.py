@@ -1,5 +1,5 @@
 import pandas as pd
-from data import data
+from mocks.data import data
 
 df = pd.DataFrame(data)
 
