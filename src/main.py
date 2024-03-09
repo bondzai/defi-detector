@@ -14,9 +14,9 @@ def main():
     if beefy.fetch_data():
         beefy.process_data()
 
-    # black = Black(os.getenv("INJ_ADDRESS"))
-    # if black.fetch_data():
-    #     black.process_data()
+    black = Black(os.getenv("INJ_ADDRESS"))
+    if black.fetch_data():
+        black.process_data()
 
 if __name__ == "__main__":
     main()
