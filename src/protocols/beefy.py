@@ -32,5 +32,6 @@ class Beefy(DefiProtocol):
 
             print("Summary:")
             pprint(df.to_dict(orient="records"))
+            print()
         else:
             print("No data fetched.")

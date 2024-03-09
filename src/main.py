@@ -3,14 +3,14 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.protocols.black import Black
-from protocols.beefy import Beefy
+from src.protocols.beefy import Beefy
 from dotenv import load_dotenv
 
 
 def main():
     load_dotenv()
 
-    beefy = Beefy(os.getenv("BEEFY_ADDRESS"))
+    beefy = Beefy(os.getenv("EVM_ADDRESS"))
     if beefy.fetch_data():
         beefy.process_data()
 

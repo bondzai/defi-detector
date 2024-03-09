@@ -38,5 +38,6 @@ class Black(DefiProtocol):
             print(f"Previous Share Value: {total_previous_share_value:.2f}")
             print(f"Current Share Value: {total_current_share_value:.2f}")
             print(f"Performance: {total_performance:.2f}%")
+            print()
         else:
             print("No data fetched.")
