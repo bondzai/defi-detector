@@ -14,6 +14,7 @@ def main():
     data = bifi.fetch_data()
     if data:
         print("bifi ok")
+        bifi.process_data()
 
     black = BlackDataFetcher(os.getenv("INJ_ADDRESS"))
     data = black.fetch_data()
