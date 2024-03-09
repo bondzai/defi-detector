@@ -1,9 +1,9 @@
 import os
 import pandas as pd
-from src.protocols.base_protocol import ProtocolDataFetcher
+from src.protocols.base_protocol import DefiProtocol
 
 
-class BlackDataFetcher(ProtocolDataFetcher):
+class BlackDataFetcher(DefiProtocol):
     def __init__(self, wallet_address):
         api_url = os.getenv("BLACK_API_URL")
         params = {"wallet_address": wallet_address}

@@ -1,6 +1,6 @@
 import requests
 
-class ProtocolDataFetcher:
+class DefiProtocol:
     def __init__(self, api_url, **params):
         self.api_url = api_url
         self.params = params
