@@ -1,6 +1,7 @@
-from src.protocols.base_protocol import ProtocolDataFetcher
-import pandas as pd
 import os
+import pandas as pd
+from src.protocols.base_protocol import ProtocolDataFetcher
+
 
 class BlackDataFetcher(ProtocolDataFetcher):
     def __init__(self, wallet_address):
