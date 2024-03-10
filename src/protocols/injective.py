@@ -22,4 +22,4 @@ class Injective(DefiProtocol):
     def process_data(self):
         print("Processing Injective data...", "\n")
         price = self.fetch_price()
-        print(f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB} THB", "\n")
+        print(f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB:.2f} THB", "\n")
