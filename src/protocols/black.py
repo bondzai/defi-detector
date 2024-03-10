@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from src.protocols import DefiProtocol
 from src.constants.vault_constants import BLACK_VAULT_ADDRESSES
+from src.constants.constants import USD_TO_THB
 
 class Black(DefiProtocol):
     def __init__(self, wallet_address):
@@ -36,9 +37,9 @@ class Black(DefiProtocol):
             performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
 
             print("Summary:")
-            print(f"Previous Share Value: {previous_share_value:.2f} USD")
-            print(f"Current Share Value: {current_share_value:.2f} USD")
-            print(f"pnl: {pnl:.2f} USD")
+            print(f"Previous Share Value: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB")
+            print(f"Current Share Value: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB")
+            print(f"pnl: {pnl:.2f} USD,  {pnl * USD_TO_THB:.2f} THB")
             print(f"performance: {performance:.2f}%")
             print()
         else:
