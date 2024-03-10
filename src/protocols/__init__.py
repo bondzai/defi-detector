@@ -35,5 +35,17 @@ class DefiProtocol:
             print(f"Error: {response.status_code} - {response.text}")
             return None
 
-    def send_message(self, message):
-        print("Sending message:", message)
+    def send_message(self, message, platforms):
+        for platform in platforms:
+            if platform == 'line':
+                self.send_message_to_line(message)
+            elif platform == 'telegram':
+                self.send_message_to_telegram(message)
+            else:
+                print(f"Error: Unsupported platform '{platform}' specified.")
+
+    def send_message_to_line(self, message):
+        print("Sending message to Line:", message)
+
+    def send_message_to_telegram(self, message):
+        print("Sending message to Telegram:", message)
