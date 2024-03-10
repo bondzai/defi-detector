@@ -30,14 +30,16 @@ class Black(DefiProtocol):
                 print(f"Performance: {row['total_performance']:.2f}%")
                 print()
 
-            total_previous_share_value = df['previous_share_value'].sum()
-            total_current_share_value = df['current_share_value'].sum()
-            total_performance = df['performance'].sum() / len(df) if len(df) > 0 else 0
+            previous_share_value = df['previous_share_value'].sum()
+            current_share_value = df['current_share_value'].sum()
+            pnl = current_share_value - previous_share_value 
+            performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
 
             print("Summary:")
-            print(f"Previous Share Value: {total_previous_share_value:.2f}")
-            print(f"Current Share Value: {total_current_share_value:.2f}")
-            print(f"Performance: {total_performance:.2f}%")
+            print(f"Previous Share Value: {previous_share_value:.2f} USD")
+            print(f"Current Share Value: {current_share_value:.2f} USD")
+            print(f"pnl: {pnl:.2f} USD")
+            print(f"performance: {performance:.2f}%")
             print()
         else:
             print("No data fetched.")
