@@ -39,8 +39,8 @@ class Black(DefiProtocol):
             print("Summary:")
             print(f"Previous Share Value: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB")
             print(f"Current Share Value: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB")
-            print(f"pnl: {pnl:.2f} USD,  {pnl * USD_TO_THB:.2f} THB")
-            print(f"performance: {performance:.2f}%")
+            print(f"PNL: {pnl:.2f} USD,  {pnl * USD_TO_THB:.2f} THB")
+            print(f"Performance: {performance:.2f}%")
             print()
         else:
             print("No data fetched.")
