@@ -34,3 +34,6 @@ class DefiProtocol:
         else:
             print(f"Error: {response.status_code} - {response.text}")
             return None
+
+    def send_message(self, message):
+        print("Sending message:", message)
