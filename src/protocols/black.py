@@ -25,22 +25,22 @@ class Black(DefiProtocol):
             )
 
             for index, row in grouped_data.iterrows():
-                print(f"Vault Strategy: {index}")
-                print(f"Previous Share Value: {row['total_previous_share_value']:.2f}")
-                print(f"Current Share Value: {row['total_current_share_value']:.2f}")
-                print(f"Performance: {row['total_performance']:.2f}%")
-                print()
+                message = (f"Vault Strategy: {index}\n"
+                           f"Previous Share Value: {row['total_previous_share_value']:.2f}\n"
+                           f"Current Share Value: {row['total_current_share_value']:.2f}\n"
+                           f"Performance: {row['total_performance']:.2f}%\n\n")
+                self.send_message(message, platforms=['line'])
 
             previous_share_value = df['previous_share_value'].sum()
             current_share_value = df['current_share_value'].sum()
             pnl = current_share_value - previous_share_value 
             performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
 
-            print("Summary:")
-            print(f"Previous Share Value: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB")
-            print(f"Current Share Value: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB")
-            print(f"PNL: {pnl:.2f} USD,  {pnl * USD_TO_THB:.2f} THB")
-            print(f"Performance: {performance:.2f}%")
-            print()
+            summary_message = ("Summary:\n"
+                               f"Previous Share Value: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
+                               f"Current Share Value: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
+                               f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
+                               f"Performance: {performance:.2f}%\n\n")
+            self.send_message(summary_message, platforms=['line'])
         else:
             print("No data fetched.")
