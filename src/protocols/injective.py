@@ -10,6 +10,16 @@ class Injective(DefiProtocol):
         self.staking_balance = 2
         super().__init__(url=api_url, method="rest", **params)
 
+    def fetch_price(self):
+        self.url = "https://k8s.mainnet.asset.injective.network/asset-price/v1/coin/prices"
+        df = pd.json_normalize(self.fetch_data_rest(), 'data')
+        target = df[df['symbol'] == 'inj']
+        if not target.empty:
+            return float(target["current_price"].iloc[0])
+        else:
+            return 40
+
     def process_data(self):
         print("Processing Injective data...", "\n")
-        print(f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * 1450} THB", "\n")
+        price = self.fetch_price()
+        print(f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB} THB", "\n")
