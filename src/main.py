@@ -11,9 +11,9 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
 
-    beefy = Beefy(os.getenv("EVM_ADDRESS"))
-    if beefy.fetch_data():
-        beefy.process_data()
+    # beefy = Beefy(os.getenv("EVM_ADDRESS"))
+    # if beefy.fetch_data():
+    #     beefy.process_data()
 
     black = Black(os.getenv("INJ_ADDRESS"))
     if black.fetch_data():
