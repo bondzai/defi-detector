@@ -49,6 +49,8 @@ class DefiProtocol:
                 self.send_message_to_line(message)
             elif platform == 'telegram':
                 self.send_message_to_telegram(message)
+            elif platform == 'discord':
+                self.send_message_to_discord(message)
             else:
                 print(f"Error: Unsupported platform '{platform}' specified.")
 
@@ -70,3 +72,22 @@ class DefiProtocol:
 
     def send_message_to_telegram(self, message):
         print("Sending message to Telegram:", message)
+
+    def send_message_to_discord(self, message):
+        url = os.getenv("DISCORD_WEBHOOK_URL")
+        if url is None:
+            print("Error: Discord webhook URL not found in environment variables.")
+            return
+
+        payload = {'content': message}
+        headers = {'Content-Type': 'application/json'}
+
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            if DEBUG:
+                if response.status_code == 204:
+                    print("Message sent to Discord successfully.")
+                else:
+                    print(f"Failed to send message to Discord. Status code: {response.status_code}")
+        except Exception as e:
+            print("An error occurred while sending message to Discord:", str(e))
