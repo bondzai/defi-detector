@@ -55,19 +55,19 @@ class DefiProtocol:
                 print(f"Error: Unsupported platform '{platform}' specified.")
 
     def send_message_to_line(self, message):
-        url = 'https://notify-api.line.me/api/notify'
-        token = os.getenv("LINE_TOKEN")
+        url = os.getenv("LINE_NOTIFY_URL")
+        token = os.getenv("LINE_NOTIFY_TOKEN")
         headers = {
             'content-type':'application/x-www-form-urlencoded',
             'Authorization':'Bearer '+ token
         }
 
-        r = requests.post(url, headers=headers, data = {
+        response = requests.post(url, headers=headers, data = {
             'message':message,
         })
 
         if DEBUG:
-            print (r.text)
+            print (response.text)
             print("Sending message to Line:", message)
 
     def send_message_to_telegram(self, message):
