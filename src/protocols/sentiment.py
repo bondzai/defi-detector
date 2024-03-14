@@ -1,6 +1,8 @@
 import pandas as pd
 from src.protocols import DefiProtocol
 from src.utils import Utils
+from src.constants.constants import USD_TO_THB
+
 
 class Sentiment(DefiProtocol):
     def __init__(self, *protocol_summaries):
@@ -18,15 +20,21 @@ class Sentiment(DefiProtocol):
             df["timestamp"] = df["timestamp"].apply(Utils.unix_to_humanreadable)
             df = df.drop(columns=["time_until_update"])
 
-            print("Sentiment Data:")
-            from pprint import pprint
-            pprint(self.protocol_summaries)
-            print()
-            
-            # for summary in self.protocol_summaries:
-            #     print("****")
-            #     print("Deposited:", summary["deposited"])
-            #     print("Current Share Value:", summary["current_share_value"])
+            message = "Portfoliio\n\n"
+            self.deposited = 0
+            self.current_share_value = 0
+            for proto in self.protocol_summaries:
+                if proto["is_enable"]:
+                    self.deposited += proto["deposited"]
+                    self.current_share_value += proto["current_share_value"]
+
+            message += f"Deposited: {self.deposited} USD, {self.deposited * USD_TO_THB:.2f} THB\n"
+            message += f"Current: {self.current_share_value} USD, {self.current_share_value * USD_TO_THB:.2f} THB\n"
+            message += f"PNL: {self.current_share_value - self.deposited} USD, {(self.current_share_value - self.deposited) * USD_TO_THB:.2f} THB\n"
+            message += f"%PNL: {((self.current_share_value - self.deposited) / self.deposited) * 100:.2f}%\n"
+
+            if message:
+                self.send_message(message, platforms=['line'])
 
             message = "Market Sentiment\n\n"
             for _, row in df.iterrows():
