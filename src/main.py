@@ -12,10 +12,11 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
     inj_address = os.getenv("INJ_ADDRESS")
+    evm_address = os.getenv("EVM_ADDRESS")
 
-    # beefy = Beefy(os.getenv("EVM_ADDRESS"))
-    # if beefy.fetch_data():
-    #     beefy.process_data()
+    beefy = Beefy(evm_address)
+    if beefy.fetch_data():
+        beefy.process_data()
 
     black = Black(inj_address)
     if black.fetch_data():
