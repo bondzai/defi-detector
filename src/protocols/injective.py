@@ -20,6 +20,8 @@ class Injective(DefiProtocol):
             return 40
 
     def process_data(self):
-        print("Processing Injective data...", "\n")
         price = self.fetch_price()
-        print(f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB:.2f} THB", "\n")
+        message = "Injective\n\n"
+        message += f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB:.2f} THB"
+        if message:
+            self.send_message(message, platforms=['line'])
