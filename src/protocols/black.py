@@ -6,6 +6,7 @@ from src.constants.constants import USD_TO_THB, BLACK_DEPOSITED
 
 class Black(DefiProtocol):
     def __init__(self, wallet_address):
+        self.deposited = BLACK_DEPOSITED
         api_url = os.getenv("BLACK_API_URL")
         params = {"wallet_address": wallet_address}
         super().__init__(url=api_url, method="rest", **params)
@@ -33,23 +34,22 @@ class Black(DefiProtocol):
                 )
 
             previous_share_value = df['previous_share_value'].sum()
-            current_share_value = df['current_share_value'].sum()
-            pnl = current_share_value - previous_share_value 
-            performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
-            accumulated_pnl = current_share_value - BLACK_DEPOSITED
-            accumulated_performance = ((current_share_value - BLACK_DEPOSITED) / BLACK_DEPOSITED) * 100 if BLACK_DEPOSITED > 0 else 0
+            self.current_share_value = df['current_share_value'].sum()
+            pnl = self.current_share_value - previous_share_value 
+            performance = ((self.current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
+            accumulated_pnl = self.current_share_value - self.deposited
+            accumulated_performance = ((self.current_share_value - self.deposited) / self.deposited) * 100 if self.deposited > 0 else 0
 
             message += (
                 f"Summary:\n"
                 f"Previous: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
-                f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
+                f"Current: {self.current_share_value:.2f} USD, {self.current_share_value * USD_TO_THB:.2f} THB\n"
                 f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
                 f"%PNL: {performance:.2f}%\n\n"
-                f"Deposited {BLACK_DEPOSITED:.2f} USD, {BLACK_DEPOSITED * USD_TO_THB:.2f} THB\n"
+                f"Deposited {self.deposited:.2f} USD, {self.deposited * USD_TO_THB:.2f} THB\n"
                 f"Acc PNL: {accumulated_pnl:.2f} USD, {accumulated_pnl * USD_TO_THB:.2f} THB\n"
                 f"Acc %PNL {accumulated_performance:.2f}%\n"
             )
-
 
             if message:
                 self.send_message(message, platforms=['line'])

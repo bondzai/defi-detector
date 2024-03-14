@@ -18,12 +18,24 @@ def main():
     if beefy.fetch_data():
         beefy.process_data()
 
+    print("****")
+    print(beefy.deposited)
+    print(beefy.current_share_value)
+
     black = Black(inj_address)
     if black.fetch_data():
         black.process_data()
 
+    print("****")
+    print(black.deposited)
+    print(black.current_share_value)
+
     injective = Injective(inj_address)
     injective.process_data()
+
+    print("****")
+    print(injective.deposited)
+    print(injective.current_share_value)
 
     sentiment = Sentiment()
     sentiment.process_data()

@@ -8,6 +8,7 @@ class Injective(DefiProtocol):
         api_url = os.getenv("BLACK_API_URL")
         params = {"wallet_address": wallet_address}
         self.staking_balance = 2
+        self.deposited = 90
         super().__init__(url=api_url, method="rest", **params)
 
     def fetch_price(self):
@@ -21,7 +22,8 @@ class Injective(DefiProtocol):
 
     def process_data(self):
         price = self.fetch_price()
+        self.current_share_value = self.staking_balance * price
         message = "Injective\n\n"
-        message += f"Staking Balance: {self.staking_balance} INJ, {self.staking_balance * price * USD_TO_THB:.2f} THB"
+        message += f"Staking Balance: {self.staking_balance} INJ, {self.current_share_value * USD_TO_THB:.2f} THB"
         if message:
             self.send_message(message, platforms=['line'])
