@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from src.protocols import DefiProtocol
 from src.constants.vault_constants import BEEFY_VAULT_ADDRESSES
+from src.constants.constants import USD_TO_THB, BEEFY_DEPOSITED
 from pprint import pprint
 
 class Beefy(DefiProtocol):
@@ -30,8 +31,20 @@ class Beefy(DefiProtocol):
                 "transaction_hash",
             ])
 
-            print("Summary:")
-            pprint(df.to_dict(orient="records"))
-            print()
+            # print("Summary:")
+            # pprint(df.to_dict(orient="records"))
+            current_share_value = float(os.getenv("BEEFY_VALUE"))
+            accumulated_pnl = current_share_value - BEEFY_DEPOSITED
+            accumulated_performance = ((current_share_value - BEEFY_DEPOSITED) / BEEFY_DEPOSITED) * 100 if BEEFY_DEPOSITED > 0 else 0
+
+            message = "Beefy\n\n"
+            message += (
+                f"Deposited {BEEFY_DEPOSITED:.2f} USD, {BEEFY_DEPOSITED * USD_TO_THB:.2f} THB\n"
+                f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
+                f"Acc PNL: {accumulated_pnl:.2f} USD, {accumulated_pnl * USD_TO_THB:.2f} THB\n"
+                f"Acc %PNL {accumulated_performance:.2f}%\n"
+            )
+            if message:
+                self.send_message(message, platforms=['line'])
         else:
             print("No data fetched.")
