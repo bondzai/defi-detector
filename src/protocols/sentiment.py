@@ -20,7 +20,7 @@ class Sentiment(DefiProtocol):
             df["timestamp"] = df["timestamp"].apply(Utils.unix_to_humanreadable)
             df = df.drop(columns=["time_until_update"])
 
-            message = "Portfoliio\n\n"
+            message = "Portfolio\n\n"
             self.deposited = 0
             self.current_share_value = 0
 
@@ -35,7 +35,7 @@ class Sentiment(DefiProtocol):
             message += f"%PNL: {((self.current_share_value - self.deposited) / self.deposited) * 100:.2f}%\n"
 
             if message:
-                self.send_message(message, platforms=['line'])
+                self.send_message(message, platforms=['line', 'discord'])
 
             message = "Market Sentiment\n\n"
             for _, row in df.iterrows():
@@ -43,6 +43,6 @@ class Sentiment(DefiProtocol):
                 message += f"value: {row['value']} {row['value_classification']}\n"
 
             if message:
-                self.send_message(message, platforms=['line'])
+                self.send_message(message, platforms=['line', 'discord'])
         else:
             print("No data fetched.")
