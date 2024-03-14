@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from src.protocols import DefiProtocol
 from src.constants.vault_constants import BLACK_VAULT_ADDRESSES
-from src.constants.constants import USD_TO_THB
+from src.constants.constants import USD_TO_THB, BLACK_DEPOSITED
 
 class Black(DefiProtocol):
     def __init__(self, wallet_address):
@@ -35,6 +35,8 @@ class Black(DefiProtocol):
             current_share_value = df['current_share_value'].sum()
             pnl = current_share_value - previous_share_value 
             performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
+            accumulated_pnl = current_share_value - BLACK_DEPOSITED
+            accumulated_performance = ((current_share_value - BLACK_DEPOSITED) / BLACK_DEPOSITED) * 100 if BLACK_DEPOSITED > 0 else 0
 
             message += (
                 f"Summary:\n"
@@ -42,9 +44,11 @@ class Black(DefiProtocol):
                 f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
                 f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
                 f"Performance: {performance:.2f}%\n\n"
-                f"Deposited {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
-                f"Accumulated Performance: {performance:.2f}%\n"
+                f"Deposited {BLACK_DEPOSITED:.2f} USD, {BLACK_DEPOSITED * USD_TO_THB:.2f} THB\n"
+                f"Accumulated PNL: {accumulated_pnl:.2f} USD, {accumulated_pnl * USD_TO_THB:.2f} THB\n"
+                f"Accumulated Performance: {accumulated_performance:.2f}%\n"
             )
+
 
             if message:
                 self.send_message(message, platforms=['line'])
