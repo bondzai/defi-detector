@@ -4,9 +4,11 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
-
+DEBUG = False
 
 class DefiProtocol:
+
+
     def __init__(self, url, method='rest', **params):
         self.url = url
         self.method = method
@@ -61,8 +63,9 @@ class DefiProtocol:
             'message':message,
         })
 
-        print (r.text)
-        print("Sending message to Line:", message)
+        if DEBUG:
+            print (r.text)
+            print("Sending message to Line:", message)
 
     def send_message_to_telegram(self, message):
         print("Sending message to Telegram:", message)
