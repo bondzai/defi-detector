@@ -22,28 +22,31 @@ class Black(DefiProtocol):
                 total_performance=('performance', lambda x: x.sum() / len(x) if len(x) > 0 else 0)
             )
 
-            messages = []
-            messages.append("Black Panther Protocol\n\n")
+            message = "Black\n\n"
             for index, row in grouped_data.iterrows():
-                message = (f"{index}\n"
-                           f"Previous: {row['total_previous_share_value']:.2f}\n"
-                           f"Current: {row['total_current_share_value']:.2f}\n"
-                           f"Performance: {row['total_performance']:.2f}%\n\n")
-                messages.append(message)
+                message += (
+                    f"{index}\n"
+                    f"Previous: {row['total_previous_share_value']:.2f}\n"
+                    f"Current: {row['total_current_share_value']:.2f}\n"
+                    f"Performance: {row['total_performance']:.2f}%\n\n"
+                )
 
             previous_share_value = df['previous_share_value'].sum()
             current_share_value = df['current_share_value'].sum()
             pnl = current_share_value - previous_share_value 
             performance = ((current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
 
-            summary_message = (f"Summary:\n"
-                               f"Previous: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
-                               f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
-                               f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
-                               f"Performance: {performance:.2f}%\n")
-            messages.append(summary_message)
+            message += (
+                f"Summary:\n"
+                f"Previous: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
+                f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
+                f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
+                f"Performance: {performance:.2f}%\n\n"
+                f"Deposited {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
+                f"Accumulated Performance: {performance:.2f}%\n"
+            )
 
-            if len(messages)> 1:
-                self.send_message(messages, platforms=['line'])
+            if message:
+                self.send_message(message, platforms=['line'])
         else:
             print("No data fetched.")
