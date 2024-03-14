@@ -11,14 +11,18 @@ from dotenv import load_dotenv
 
 def main():
     load_dotenv()
+    inj_address = os.getenv("INJ_ADDRESS")
 
     # beefy = Beefy(os.getenv("EVM_ADDRESS"))
     # if beefy.fetch_data():
     #     beefy.process_data()
 
-    black = Black(os.getenv("INJ_ADDRESS"))
+    black = Black(inj_address)
     if black.fetch_data():
         black.process_data()
+
+    injective = Injective(inj_address)
+    injective.process_data()
 
     sentiment = Sentiment()
     sentiment.process_data()
