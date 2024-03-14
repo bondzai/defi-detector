@@ -1,7 +1,6 @@
 import pandas as pd
 from src.protocols import DefiProtocol
 from src.utils import Utils
-from pprint import pprint
 
 class Sentiment(DefiProtocol):
     def __init__(self):
@@ -17,6 +16,13 @@ class Sentiment(DefiProtocol):
             df = pd.DataFrame(data)
             df["timestamp"] = df["timestamp"].apply(Utils.unix_to_humanreadable)
             df = df.drop(columns=["time_until_update"])
-            pprint(df.to_dict(orient="records"))
+            
+            message = "Market Sentiment\n\n"
+            for _, row in df.iterrows():
+                message += f"date: {row['timestamp']}\n"
+                message += f"value: {row['value']} {row['value_classification']}\n"
+
+        if message:
+            self.send_message(message, platforms=['line'])
         else:
             print("No data fetched.")
