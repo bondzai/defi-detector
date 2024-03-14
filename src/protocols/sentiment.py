@@ -23,14 +23,15 @@ class Sentiment(DefiProtocol):
             message = "Portfoliio\n\n"
             self.deposited = 0
             self.current_share_value = 0
+
             for proto in self.protocol_summaries:
                 if proto["is_enable"]:
                     self.deposited += proto["deposited"]
                     self.current_share_value += proto["current_share_value"]
 
-            message += f"Deposited: {self.deposited} USD, {self.deposited * USD_TO_THB:.2f} THB\n"
-            message += f"Current: {self.current_share_value} USD, {self.current_share_value * USD_TO_THB:.2f} THB\n"
-            message += f"PNL: {self.current_share_value - self.deposited} USD, {(self.current_share_value - self.deposited) * USD_TO_THB:.2f} THB\n"
+            message += f"Deposited: {self.deposited * USD_TO_THB:.2f} THB\n"
+            message += f"Current: {self.current_share_value * USD_TO_THB:.2f} THB\n"
+            message += f"PNL: {(self.current_share_value - self.deposited) * USD_TO_THB:.2f} THB\n"
             message += f"%PNL: {((self.current_share_value - self.deposited) / self.deposited) * 100:.2f}%\n"
 
             if message:

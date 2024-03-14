@@ -36,7 +36,8 @@ def summarize_protocol_data(protocol_class, *args):
     else:
         return {
             "deposited": None,
-            "current_share_value": None
+            "current_share_value": None,
+            "is_enable": None,
         }
 
 if __name__ == "__main__":
