@@ -2,43 +2,41 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from dotenv import load_dotenv
 from src.protocols.black import Black
 from src.protocols.beefy import Beefy
 from src.protocols.injective import Injective
 from src.protocols.sentiment import Sentiment
-from dotenv import load_dotenv
-
 
 def main():
     load_dotenv()
     inj_address = os.getenv("INJ_ADDRESS")
     evm_address = os.getenv("EVM_ADDRESS")
 
-    beefy = Beefy(evm_address)
-    if beefy.fetch_data():
-        beefy.process_data()
+    protocols = [
+        {"class": Beefy, "args": (evm_address,)},
+        {"class": Black, "args": (inj_address,)},
+        {"class": Injective, "args": (inj_address,)}
+    ]
 
-    print("****")
-    print(beefy.deposited)
-    print(beefy.current_share_value)
+    protocol_summaries = [summarize_protocol_data(proto["class"], *proto["args"]) for proto in protocols]
 
-    black = Black(inj_address)
-    if black.fetch_data():
-        black.process_data()
-
-    print("****")
-    print(black.deposited)
-    print(black.current_share_value)
-
-    injective = Injective(inj_address)
-    injective.process_data()
-
-    print("****")
-    print(injective.deposited)
-    print(injective.current_share_value)
-
-    sentiment = Sentiment()
+    sentiment = Sentiment(*protocol_summaries)
     sentiment.process_data()
+
+def summarize_protocol_data(protocol_class, *args):
+    protocol_instance = protocol_class(*args)
+    if protocol_instance.fetch_data():
+        protocol_instance.process_data()
+        return {
+            "deposited": protocol_instance.deposited,
+            "current_share_value": protocol_instance.current_share_value
+        }
+    else:
+        return {
+            "deposited": None,
+            "current_share_value": None
+        }
 
 if __name__ == "__main__":
     main()
