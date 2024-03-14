@@ -16,13 +16,13 @@ class Sentiment(DefiProtocol):
             df = pd.DataFrame(data)
             df["timestamp"] = df["timestamp"].apply(Utils.unix_to_humanreadable)
             df = df.drop(columns=["time_until_update"])
-            
+
             message = "Market Sentiment\n\n"
             for _, row in df.iterrows():
                 message += f"date: {row['timestamp']}\n"
                 message += f"value: {row['value']} {row['value_classification']}\n"
 
-        if message:
-            self.send_message(message, platforms=['line'])
+            if message:
+                self.send_message(message, platforms=['line'])
         else:
             print("No data fetched.")
