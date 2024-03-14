@@ -28,7 +28,8 @@ class Black(DefiProtocol):
                     f"{index}\n"
                     f"Previous: {row['total_previous_share_value']:.2f}\n"
                     f"Current: {row['total_current_share_value']:.2f}\n"
-                    f"Performance: {row['total_performance']:.2f}%\n\n"
+                    f"PNL: {row['total_current_share_value'] - row['total_previous_share_value']:.2f}\n"
+                    f"%PNL: {row['total_performance']:.2f}%\n\n"
                 )
 
             previous_share_value = df['previous_share_value'].sum()
@@ -43,10 +44,10 @@ class Black(DefiProtocol):
                 f"Previous: {previous_share_value:.2f} USD, {previous_share_value * USD_TO_THB:.2f} THB\n"
                 f"Current: {current_share_value:.2f} USD, {current_share_value * USD_TO_THB:.2f} THB\n"
                 f"PNL: {pnl:.2f} USD, {pnl * USD_TO_THB:.2f} THB\n"
-                f"Performance: {performance:.2f}%\n\n"
+                f"%PNL: {performance:.2f}%\n\n"
                 f"Deposited {BLACK_DEPOSITED:.2f} USD, {BLACK_DEPOSITED * USD_TO_THB:.2f} THB\n"
-                f"Accumulated PNL: {accumulated_pnl:.2f} USD, {accumulated_pnl * USD_TO_THB:.2f} THB\n"
-                f"Accumulated Performance: {accumulated_performance:.2f}%\n"
+                f"Acc PNL: {accumulated_pnl:.2f} USD, {accumulated_pnl * USD_TO_THB:.2f} THB\n"
+                f"Acc %PNL {accumulated_performance:.2f}%\n"
             )
 
 
