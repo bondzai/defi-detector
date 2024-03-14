@@ -30,7 +30,8 @@ def summarize_protocol_data(protocol_class, *args):
         protocol_instance.process_data()
         return {
             "deposited": protocol_instance.deposited,
-            "current_share_value": protocol_instance.current_share_value
+            "current_share_value": protocol_instance.current_share_value,
+            "is_enable": protocol_instance.is_enable,
         }
     else:
         return {

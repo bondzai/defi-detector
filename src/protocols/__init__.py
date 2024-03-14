@@ -10,6 +10,7 @@ class DefiProtocol:
 
 
     def __init__(self, url, method='rest', **params):
+        self.is_enable = True
         self.url = url
         self.method = method
         self.params = params
