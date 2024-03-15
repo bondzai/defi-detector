@@ -37,7 +37,7 @@ class Sentiment(DefiProtocol):
             if message:
                 self.send_message(message, platforms=['line', 'discord'])
 
-            message = "Market Sentiment\n\n"
+            message = "\n\n"
             for _, row in df.iterrows():
                 message += f"date: {row['timestamp']}\n"
                 message += f"value: {row['value']} {row['value_classification']}\n"
