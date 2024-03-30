@@ -17,6 +17,7 @@ class Black(DefiProtocol):
         if data:
             df = pd.DataFrame(data)
             df['vault_address_mapped'] = df['vault_address'].map(BLACK_VAULT_ADDRESSES)
+
             grouped_data = df.groupby('vault_address_mapped').agg(
                 total_previous_share_value=('previous_share_value', 'sum'),
                 total_current_share_value=('current_share_value', 'sum'),
@@ -33,8 +34,9 @@ class Black(DefiProtocol):
                     f"%PNL: {row['total_performance']:.2f}%\n\n"
                 )
 
-            previous_share_value = df['previous_share_value'].sum()
-            self.current_share_value = df['current_share_value'].sum()
+            previous_share_value = grouped_data['total_previous_share_value'].sum()
+            self.current_share_value = grouped_data['total_current_share_value'].sum()
+
             pnl = self.current_share_value - previous_share_value 
             performance = ((self.current_share_value - previous_share_value) / previous_share_value) * 100 if previous_share_value > 0 else 0
             accumulated_pnl = self.current_share_value - self.deposited
