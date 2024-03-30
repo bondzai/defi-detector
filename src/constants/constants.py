@@ -1,6 +1,7 @@
 import os
+from src.utils import Utils
 
-USD_TO_THB = 35.41
+USD_TO_THB = Utils.get_exchange_rate()
 
 INITIAL_DEPOSITED = os.getenv("INITIAL_DEPOSITED").split(",")
 BLACK_DEPOSITED = float(INITIAL_DEPOSITED[0])
