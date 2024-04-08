@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from src.protocols import DefiProtocol
-from src.constants.constants import USD_TO_THB
 
 class Injective(DefiProtocol):
     def __init__(self, wallet_address):
@@ -24,7 +23,3 @@ class Injective(DefiProtocol):
         print("Processing Injective data...", "\n")
         price = self.fetch_price()
         self.current_share_value = self.staking_balance * price
-        message = "Injective\n\n"
-        message += f"Staking Balance: {self.staking_balance} INJ, {self.current_share_value * USD_TO_THB:.2f} THB"
-        if message:
-            self.send_message(message, platforms=['line'])
