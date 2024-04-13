@@ -3,7 +3,8 @@ BLACK_VAULT_ADDRESSES = {
     "inj1rcjtkmfyymcdm03alslr890khuzmzn7jxy5zgt": "eth-trend-following",
     "inj1mrfsm3c8psn6vaznxh7ewgsp4zn5vldaq54lqu": "bnb-usdt-trend-following",
     "inj1vh4j56pf5x4sp8a3xklj0v3sq73y6cs4qvul7s": "inj-usdt-trend-following",
-    "inj1jzk6f35uv86tu8t7a8qj2revdh6l6sxhy49k30": "sol-usdt-market-making",
+    "inj10ahageqx7guq38w3xylmrjf8vm632x76t6l5ef": "inj-usdt-grid-trading",
+    # "inj1jzk6f35uv86tu8t7a8qj2revdh6l6sxhy49k30": "sol-usdt-market-making",
 }
 
 BEEFY_VAULT_ADDRESSES = {
